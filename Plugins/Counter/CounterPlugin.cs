@@ -16,4 +16,8 @@ namespace Counter
             return new PluginOutput(result, result);
         }
     }
+
+
 }
+
+
