@@ -34,7 +34,7 @@ namespace ListPlugin
                 input.Callbacks.EndSession();
                 return new PluginOutput("List stopped.", input.PersistentData);
             }
-            else if (input.Message.StartsWith("add"))
+            else if (input.Message.ToLower().StartsWith("add"))
             {
                 var str = input.Message.Substring("add".Length).Trim();
                 list.Add(str);
@@ -43,12 +43,14 @@ namespace ListPlugin
 
                 return new PluginOutput($"New task: {str}", JsonSerializer.Serialize(data));
             }
-            else if (input.Message.StartsWith("delete"))
-            {   
-                list.RemoveAt(list.Count - 1);
+            else if (input.Message.ToLower().StartsWith("delete"))
+
+            {
+                var str = input.Message.Substring("delete".Length).Trim();
+                list = list.Where(t => t != str).ToList();
                 var data = new PersistentDataStructure(list);
 
-                return new PluginOutput($"Delete last task");
+                return new PluginOutput($"Delete task:{str}", JsonSerializer.Serialize(data));
             }
             else if (input.Message == "list")
             {
