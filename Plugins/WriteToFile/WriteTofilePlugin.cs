@@ -23,7 +23,7 @@ namespace CountTheWords
                 string path = Console.ReadLine();
                 File.ReadAllText(path);
                 Console.Read();
-            
+             
         }
     }
 }
